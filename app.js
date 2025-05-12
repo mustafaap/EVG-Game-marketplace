@@ -1,4 +1,5 @@
 // require modules
+require('dotenv').config();
 const express = require('express');
 const itemRoutes = require('./routes/itemRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -16,7 +17,7 @@ const app = express();
 let port = 3000;
 let host = 'localhost';
 app.set('view engine', 'ejs');
-const mongUri = 'mongodb+srv://admin:admin123@cluster0.knwlf.mongodb.net/project5?retryWrites=true&w=majority&appName=Cluster0'
+const mongUri = process.env.MONGODB_URI;
 
 mongoose.connect(mongUri)
 .then(()=>{
@@ -33,7 +34,7 @@ app.use(
         secret: "ajfeirf90aeu9eroejfoefj",
         resave: false,
         saveUninitialized: false,
-        store: new MongoStore({mongoUrl: 'mongodb+srv://admin:admin123@cluster0.knwlf.mongodb.net/project5?retryWrites=true&w=majority&appName=Cluster0'}),
+        store: new MongoStore({mongoUrl: process.env.MONGODB_URI}),
         cookie: {maxAge: 60*60*1000}
         })
 );
