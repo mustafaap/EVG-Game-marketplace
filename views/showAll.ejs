@@ -1,0 +1,21 @@
+<%- include('./partials/header.ejs') %>
+<main class="main-content">
+    <h1>Items for Sale</h1>
+    <% if (items.length === 0) { %>
+        <p>No items found.</p>
+    <% } else { %>
+        <div class="item-grid browse">
+            <% items.forEach(item => { %>
+                <div class="item-card browse" onclick="location.href='/items/<%= item.id %>'">
+                    <img src="<%= item.image %>" alt="<%= item.title %>">
+                    <h2><%= item.title %></h2>
+                    <hr>
+                    <p><strong>Condition:</strong> <%= item.condition %></p>
+                    <p><strong>Price:</strong> $<%= item.price %></p>
+                    <p><strong>Total Offers:</strong> <%= item.totalOffers %></p>
+                </div>
+            <% }); %>
+        </div>
+    <% } %>
+</main>
+<%- include('./partials/footer.ejs') %>

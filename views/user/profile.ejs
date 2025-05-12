@@ -1,0 +1,58 @@
+<%- include('../partials/header.ejs')%>
+<main class="main-content">
+    <h1>Welcome, <%= user.firstName %></h1>
+    <% if (items.length) { %>
+        <br>
+        <h3>You have listed the following games</h3>
+        <br>
+        <div class="item-grid">
+            <% items.forEach(item => { %>
+                <div class="item-card" onclick="location.href='/items/<%= item.id %>'">
+                    <h2><%= item.title %></h2>
+                    <p><%= item.details %></p>
+                    <br>
+                    <p><strong>Status:</strong> <%= item.active ? "Active" : "Inactive" %></p>
+                    <div class="item-actions">
+                        <a href="/items/<%= item.id %>/edit" class="btn edit-btn">Edit</a>
+                        <form action="/items/<%= item.id %>/delete" method="POST">
+                            <button type="submit" class="btn delete-btn">Delete</button>
+                        </form>
+                        <% if (item.totalOffers > 0) { %>
+                            <a href="/items/<%= item.id %>/offers" class="btn offers" onclick="event.stopPropagation();">View Offers</a>
+                        <% } else { %>
+                            <span class="btn disabled" onclick="event.stopPropagation();">View Offers</span>
+                        <% } %>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <br>
+        <p>You have not listed any games</p>
+    <% } %>
+
+    <% if (offers.length) { %>
+        <br>
+        <br>
+        <h2>My Offers</h2>
+        <br>
+        <div class="offer-grid">
+            <div class="offer-card">
+                <p><strong>Game</strong></p>
+                <p><strong>Amount</strong></p>
+                <p><strong>Status</strong></p>
+            </div>
+            <% offers.forEach(offer => { %>
+                <div class="offer-card game" onclick="location.href='/items/<%= offer.item.id %>'">
+                    <p><a href="/items/<%= offer.item.id %>"><%= offer.item.title %></a></p>
+                    <p>$<%= offer.amount %></p>
+                    <p><%= offer.status %></p>
+                </div>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <br>
+        <p>You have not made any offers</p>
+    <% } %>
+</main>
+<%- include('../partials/footer.ejs')%>

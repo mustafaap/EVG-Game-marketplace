@@ -1,0 +1,34 @@
+<%- include('../partials/header.ejs') %>
+<main class="main-content">
+    <h1>Offers for <%= item.title %></h1>
+    <br>
+    <% if (offers.length > 0) { %>
+        <div class="offer-grid">
+            <div class="offer-card">
+                <p><strong>Offer Amount</strong></p>
+                <p><strong>Buyer</strong></p>
+                <p><strong>Status</strong></p>
+                <% if (item.active) { %>
+                    <p></p>
+                <% } %>
+            </div>
+            <% offers.forEach(offer => { %>
+                <div class="offer-card">
+                    <p>$<%= offer.amount %></p>
+                    <p><%= offer.user.firstName %> <%= offer.user.lastName %></p>
+                    <p><%= offer.status %></p>
+                    <% if (item.active) { %>
+                        <form action="/items/<%= item.id %>/offers/<%= offer.id %>/accept" method="POST">
+                            <span>
+                                <button type="submit" class="btn" <%= offer.status === 'accepted' ? 'disabled' : '' %>>Accept</button>
+                            </span>
+                        </form>
+                    <% } %>
+                </div>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <p>No offers received yet.</p>
+    <% } %>
+</main>
+<%- include('../partials/footer.ejs') %>

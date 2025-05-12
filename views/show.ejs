@@ -1,0 +1,36 @@
+<%- include('./partials/header.ejs') %>
+<main class="main-content">
+    <section class="item-detail">
+        <div class="detail-container">
+            <div class="detail-image">
+                <img src="<%= item.image %>" alt="Item Detail">
+            </div>
+            <div class="detail-info">
+                <h1><%= item.title %></h1>
+                <br>
+                <p><%= item.details %></p>
+                <br>
+                <p><strong>Condition:</strong> <%= item.condition %></p>
+                <p><strong>Seller:</strong> <%= item.seller.firstName + ' ' + item.seller.lastName %></p>
+                <p><strong>Price:</strong> $<%= item.price %></p>
+                <p><strong>Total Offers:</strong> <%= item.totalOffers %></p>
+                <% if (!item.active) { %>
+                    <br>
+                    <p>Unfortunately, this game is no longer available.</p>
+                <% } else if (item.totalOffers > 0) { %>
+                    <p><strong>Highest Offer:</strong> $<%= item.highestOffer %></p>
+                <% } %>
+                <br>
+                <% if (item.active) { %>
+                    <form action="/items/<%= item.id %>/offers" method="POST" onsubmit="return handleOfferSubmission(event)">
+                        <input class="offer-input" type="number" id="amount" name="amount" step="0.01" min="0.01" placeholder="Make an Offer" required>
+                        <div>
+                            <button type="submit" class="btn" >Submit Offer</button>
+                        </div>
+                    </form>
+                <% } %>
+            </div>
+        </div>
+    </section>
+</main>
+<%- include('./partials/footer.ejs') %>
