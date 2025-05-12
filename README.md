@@ -2,6 +2,8 @@
 
 A web application for buying and selling video games. Users can list games, make offers, and manage their listings.
 
+![image](https://github.com/user-attachments/assets/c6f38a7e-104b-412b-865d-4da5e383c7e5)
+
 ## Features
 
 - User authentication (signup, login, logout)
